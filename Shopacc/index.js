@@ -20,6 +20,10 @@ app.post("/add", async (req, res) =>{
 })
 
 app.post("/remove", async (req, res) =>{
+  
+})
+
+app.post("/delete", async (req, res) =>{
  
 })
 
