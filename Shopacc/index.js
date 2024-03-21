@@ -32,24 +32,40 @@ app.use(express.static("public"));
 //   }
 // })
 
-async function checkIMG() {
-  const result = await db.query("SELECT menuimg FROM menu");
+async function checkMENU() {
+  const result = await db.query("SELECT *  FROM menu");
   let menuIMG = [];
-  let rac = [];
+  let menuNAME =[];
+  let menuPRICE = [];
+  let menuREALPRICE = [];
   result.rows.forEach((img) => {
     menuIMG.push(img.menuimg);
   });
-  console.log(menuIMG);
-  return menuIMG;
+  result.rows.forEach((name) => {
+    menuNAME.push(name.menuname);
+  });
+  result.rows.forEach((price) => {
+    menuPRICE.push(price.menuprice);
+  });
+  result.rows.forEach((realprice) => {
+    menuREALPRICE.push(realprice.menurealprice);
+  });
+  return [menuIMG, menuNAME, menuPRICE, menuREALPRICE];
 };
 
 
 
 
 app.get("/", async (req, res) => {
-  const menuIMG = await checkIMG();
+  const [menuIMG,,,] = await checkMENU();
+  const [,menuNAME,,] = await checkMENU();
+  const [,,menuPRICE,] = await checkMENU();
+  const [,,,menuREALPRICE] = await checkMENU();
   res.render("index.ejs", {
     menu_img: menuIMG,
+    menu_name: menuNAME,
+    menu_price: menuPRICE,
+    menu_realprice: menuREALPRICE,
   });
 });
 app.post("/add", async (req, res) =>{
