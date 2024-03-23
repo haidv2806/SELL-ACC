@@ -68,7 +68,10 @@ app.get("/", async (req, res) => {
     menu_realprice: menuREALPRICE,
   });
 });
-app.post("/add", async (req, res) =>{
+
+app.get("/regis")
+
+app.post("/regis", async (req, res) =>{
  
 })
 
